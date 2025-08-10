@@ -1,0 +1,11 @@
+{
+  "name": "snapshot-browser-webapp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "moment": "^2.30.1"
+  }
+}
