@@ -30,7 +30,7 @@ def "main build" [
   augment_path
   ^tar -cC $deps node_modules | ^tar -xC $env.tmp
   ^tar -cC $src . | ^tar -xC $env.tmp
-  bun build index.html --outdir $"($env.out)/dist" --public-path "/" --minify
+  bun build index.html --outdir $"($env.out)/dist" --public-path "/"
 }
 
 def --env augment_path [] {
