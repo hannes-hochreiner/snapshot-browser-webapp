@@ -155,3 +155,23 @@ def remove_network [
     docker network rm $network
   }
 }
+
+export def create-test-container [] {
+  sudo nixos-container create sb-wa-test --flake .#sb-wa-test
+  sudo nixos-container start sb-wa-test
+}
+
+export def update-test-container [] {
+  sudo nixos-container update sb-wa-test --flake .#sb-wa-test
+}
+
+export def destroy-test-container [] {
+  let messed_up_path = "/var/lib/nixos-containers/sb-wa-test/var/empty"
+  
+  if ($messed_up_path | path exists) {
+    sudo chattr -i $messed_up_path
+    # sudo rm -rf $messed_up_path
+  }
+  
+  sudo nixos-container destroy sb-wa-test
+}

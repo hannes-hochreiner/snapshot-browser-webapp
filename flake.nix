@@ -44,6 +44,7 @@
           # nodejs_24
           # bash
           # uutils-coreutils-noprefix
+          uutils-coreutils
           gnutar
           # diffutils
           bun
@@ -70,8 +71,33 @@
           nushell
           # nodejs_24
           # uutils-coreutils-noprefix
+          busybox
           bun
         ];
+      };
+
+      nixosConfigurations = {
+        sb-wa-test = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          modules = [
+            # self.nixosModules.${system}.default
+            ({pkgs, ...}: {
+              nixpkgs.overlays = [
+                (final: prev: { snapshot-browser-webapp = self.packages.${system}.default; })
+              ];
+              # Only allow this to boot as a container
+              boot.isContainer = true;
+              networking.hostName = "sb-wa-test";
+
+              environment.systemPackages = with pkgs; [
+                snapshot-browser-webapp
+              ];
+
+              system.stateVersion = "25.05";
+            })
+          ];
+        };
       };
     };
   

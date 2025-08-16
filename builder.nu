@@ -18,9 +18,9 @@ def "main vendor" [
     rm -r $node_modules_cache
   }
 
-  mkdir $"($env.out)"
-  ^tar -cC $env.tmp node_modules | ^tar -xC $"($env.out)"
-  print (ls -la $"($env.out)" | to json)
+  mkdir $env.out
+  ^tar -cC $env.tmp node_modules | ^tar -xC $env.out
+  # print (ls -la $"($env.out)" | to json)
 }
 
 def "main build" [
@@ -30,7 +30,10 @@ def "main build" [
   augment_path
   ^tar -cC $deps node_modules | ^tar -xC $env.tmp
   ^tar -cC $src . | ^tar -xC $env.tmp
-  bun build index.html --outdir $"($env.out)/dist" --public-path "/"
+  ^uutils-chmod 755 $env.tmp
+  bun build index.html --outdir dist --public-path "/"
+  mkdir $env.out
+  ^tar -cC $env.tmp dist | ^tar -xC $env.out
 }
 
 def --env augment_path [] {
