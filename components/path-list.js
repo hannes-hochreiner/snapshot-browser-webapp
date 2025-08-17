@@ -31,11 +31,16 @@ export class SbPathList extends HTMLElement {
     `;
 
     this.rootName = rootName;
-    this.path = path;
+
+    if (!path.startsWith("/") && path.length > 0) {
+      this.path = "/" + path;
+    } else {
+      this.path = path;
+    }
   }
 
   async connectedCallback() {
-    const url = `/api/latest/roots/${encodeURIComponent(this.rootName)}/path/${encodeURI(this.path)}`;
+    const url = `/api/latest/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path)}`;
     
     try {
       const response = await fetch(url);
@@ -50,9 +55,9 @@ export class SbPathList extends HTMLElement {
         let link;
 
         if ("File" in path.details) {
-          link = `<a href="/api/latest/roots/${encodeURIComponent(this.rootName)}/path/${encodeURI(this.path + "/" + path.name)}" target="_blank">${path.name}</a>`;
+          link = `<a href="/api/latest/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path + "/" + path.name)}" target="_blank">${path.name}</a>`;
         } else {
-          link = `<a href="/roots/${encodeURIComponent(this.rootName)}/path/${encodeURI(path.name)}">${path.name}</a>`;
+          link = `<a href="/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path + "/" + path.name)}">${path.name}</a>`;
         }
         
         return `<div class="path-item">${link}</div>`;
