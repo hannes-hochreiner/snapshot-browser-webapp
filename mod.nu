@@ -177,5 +177,5 @@ export def destroy-test-container [] {
 }
 
 export def bun-start [] {
-  bun run ./dev-server.js
+  bun run ./dev_server.js
 }
