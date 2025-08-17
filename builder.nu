@@ -31,7 +31,7 @@ def "main build" [
   ^tar -cC $deps node_modules | ^tar -xC $env.tmp
   ^tar -cC $src . | ^tar -xC $env.tmp
   ^uutils-chmod 755 $env.tmp
-  bun build index.html --outdir dist --public-path "/"
+  bun build index.html --outdir dist --public-path "/" --production
   mkdir $env.out
   ^tar -cC $env.tmp dist | ^tar -xC $env.out
 }
