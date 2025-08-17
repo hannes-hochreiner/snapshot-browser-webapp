@@ -175,3 +175,7 @@ export def destroy-test-container [] {
   
   sudo nixos-container destroy sb-wa-test
 }
+
+export def bun-start [] {
+  bun run ./dev-server.js
+}
