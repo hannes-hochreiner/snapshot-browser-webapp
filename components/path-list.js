@@ -51,7 +51,7 @@ export class SbPathList extends HTMLElement {
       const result = await response.json();
 
       const rootsList = this.shadowRoot.querySelector("#path-list");
-      rootsList.innerHTML = result.map((path) => {
+      rootsList.innerHTML = result.sort((a, b) => a.name.localeCompare(b.name)).map((path) => {
         let link;
 
         if ("File" in path.details) {
