@@ -26,7 +26,6 @@ export class SbPath extends HTMLElement {
         <sb-header></sb-header>
         <div id="breadcrumbs"></div>
         <main>
-          <p>Path List</p>
           <div id="path-list"></div>
         </main>
       </div>
