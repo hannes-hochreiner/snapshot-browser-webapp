@@ -19,21 +19,19 @@ export class SbPathGrid extends HTMLElement {
           margin: 0.25rem 0;
           border: 1px solid var(--primary-light);
           border-radius: 4px;
-          padding: 0.5rem;
           color: var(--primary-dark);
-        }
-
-        .path-item {
           display: grid;
-          grid-template-columns: 1fr;
-          grid-template-rows: 200px auto;
+          grid-template-columns: 200px;
+          grid-template-rows: 200px;
           text-decoration: none;
           color: var(--primary-dark);
           justify-items: center;
         }
 
         .image {
-          height: 200px;
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
           justify-self: center;
         }
 
@@ -71,7 +69,7 @@ export class SbPathGrid extends HTMLElement {
 
         if ("File" in path.details) {
           const image = (path.name.toLowerCase().endsWith(".png") || path.name.toLowerCase().endsWith(".jpg") || path.name.toLowerCase().endsWith(".jpeg") || path.name.toLowerCase().endsWith(".gif") || path.name.toLowerCase().endsWith(".bmp") || path.name.toLowerCase().endsWith(".webp")) ?
-            /*html*/`<img class="image" src="/api/latest/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path + "/" + path.name)}" alt="${path.name}">` :
+            /*html*/`<img class="image" src="/api/latest/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path + "/" + path.name)}?width=200&height=200" alt="${path.name}">` :
             /*html*/`<svg class="image" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#1f1f1f"><path d="M240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/></svg>`;
 
           link = /*html*/`<a class="path-item" href="/api/latest/roots/${encodeURIComponent(this.rootName)}/path${encodeURI(this.path + "/" + path.name)}" target="_blank">
